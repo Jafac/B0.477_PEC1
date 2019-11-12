@@ -15,6 +15,8 @@ output:
     highlight: zenburn
     toc: yes
   word_document: default
+editor_options: 
+  chunk_output_type: console
 ---
 
 ******
@@ -134,17 +136,18 @@ El código R que utilizaremos en la práctica se divide en apartados según las 
 ******
 Instalamos los packages de R que necesitaremos para realizar la práctica:
 
-install.packages("tm")
-install.packages("plyr")
-install.packages("class")
-install.packages("ggplot2")
-install.packages("SnowballC")
-install.packages("wordcloud")
+* install.packages("tm")
+* install.packages("plyr")
+* install.packages("class")
+* install.packages("ggplot2")
+* install.packages("SnowballC")
+* install.packages("wordcloud")
 
 
 Definimos el directorio de trabajo donde tendremos guardado el fichero de datos.
 
 setwd("ruta")
+setwd("C:\\Users\\acamp\\OneDrive\\Documentos\\UOC\\proyectos_git\\B0.477_PEC1")
 
 Para instalar los paquetes y definir el directorio de trabajo podéis eliminar los asteriscos delante de los **install.packages()** y **setwd()** seleccionarlos y ejecutarlos como comandos de R (Control+Intro).
 
@@ -452,6 +455,14 @@ ratio2
 En el apartado "Visualizaciones sobre la matriz de palabras TDM", uno los resultados obtenidos tras inspeccionar el corpus mat_acq y mat_earn se denomina "Non-/sparse entries", esto está relacionado con el concepto "Sparsity". ¿Qué relación existe entre los resultados en "Non-/sparse entries" y "Sparsity"?.
 
 ## Respuesta 1:
+
+El apartado "Non-/sparse entries" define datos no-dispersos/datos dispersos, por lo tanto cuando en mat_acq dice que su valor es 17687/49345 significa que en toda la matriz hay 17687 datos distintos que zero y 49345 datos que son cero. 
+
+Segun la definición de "sparse matrix" en la wikipedia, se define el concepto "sparsity" 
+
+
+
+https://en.wikipedia.org/wiki/Sparse_matrix
 
 ## Ejercicio 2:
 En el apartado "Visualizaciones sobre la matriz de palabras TDM" se muestron algunos ejemplos de visualización de distintas secciones de la matriz de términos. Visualizad los 10 primeros términos y los 10 primeros documentos en la temática "earn". Posteriormente visualizar aquellas palabras relacionadas con esta misma temática y con frecuencia menor a 1000 y mayor a 10.
