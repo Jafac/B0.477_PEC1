@@ -456,11 +456,20 @@ En el apartado "Visualizaciones sobre la matriz de palabras TDM", uno los result
 
 ## Respuesta 1:
 
-El apartado "Non-/sparse entries" define datos no-dispersos/datos dispersos, por lo tanto cuando en mat_acq dice que su valor es 17687/49345 significa que en toda la matriz hay 17687 datos distintos que zero y 49345 datos que son cero. 
+El apartado "Non-/sparse entries" define datos no-dispersos/datos dispersos, por lo tanto cuando en mat_acq dice que su valor es 17687/49345 significa que en toda la matriz hay 17687 datos distintos que cero y 49345 datos que son cero. 
 
-Segun la definición de "sparse matrix" en la wikipedia, se define el concepto "sparsity" 
+Según la definición de "sparse matrix" en la wikipedia, se define el concepto "sparsity" como el número de datos que son cero entre el total de los elementos, esto es 49345/(49345+17687)
 
+```{r}
+sparsity.ejercicio1 <- 100 * (49345 / (49345+17687))
+#El aparado de sparsity vienen redondeado
+round.sparsity.ejercicio1 <- round(sparsity.ejercicio1)
+mat_acq$mat
+round.sparsity.ejercicio1
+```
+Vemos que los terminos coinciden.
 
+Por tanto, los campos "Non-/sparse entries" y "Sparsity" nos dan una idea de cómo de dispersa o densa (opuesto a dispersa) es una matriz.
 
 https://en.wikipedia.org/wiki/Sparse_matrix
 
@@ -468,6 +477,11 @@ https://en.wikipedia.org/wiki/Sparse_matrix
 En el apartado "Visualizaciones sobre la matriz de palabras TDM" se muestron algunos ejemplos de visualización de distintas secciones de la matriz de términos. Visualizad los 10 primeros términos y los 10 primeros documentos en la temática "earn". Posteriormente visualizar aquellas palabras relacionadas con esta misma temática y con frecuencia menor a 1000 y mayor a 10.
 
 ## Respuesta 2:
+
+```{r}
+
+```
+
 
 ## Ejercicio 3:
 En el apartado "Descripción de la TDM"" se construye un gráficos de barras con las palabras con una frecuencia mayor que 500 en ambas temáticas.
