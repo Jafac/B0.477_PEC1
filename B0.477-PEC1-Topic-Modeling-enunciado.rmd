@@ -148,6 +148,7 @@ Definimos el directorio de trabajo donde tendremos guardado el fichero de datos.
 
 setwd("ruta")
 setwd("C:\\Users\\acamp\\OneDrive\\Documentos\\UOC\\proyectos_git\\B0.477_PEC1")
+setwd("C:/Users/03743985/Documents/Repositorios_git/B0.477_PEC1/")
 
 Para instalar los paquetes y definir el directorio de trabajo podéis eliminar los asteriscos delante de los **install.packages()** y **setwd()** seleccionarlos y ejecutarlos como comandos de R (Control+Intro).
 
@@ -489,10 +490,67 @@ Construya un gráfico de barras similar pero con las barras apiladas y en posici
 
 ## Respuesta 3: 
 
+Reusamos el 'fdata' ya construido (concatenacion de las matrices para 'acq' y 'earn') para generar la grafica:
+```{r}
+colnames(fdata)
+```
+
+Para cambiar las barras separadas por las barras apiladas hay que cambiar el parametro 'position' de la función 'geom_bar': de 'position_dodge()' pasa a ser 'position_stack()'.
+https://www.rdocumentation.org/packages/ggplot2/versions/3.2.1/topics/geom_bar
+
+Para cambiar la posición es suficiente con añadir la función cood_flip() para que invierta los ejes y asi ver el grafico en horizontal.
+https://www.rdocumentation.org/packages/ggplot2/versions/3.2.1/topics/coord_flip
+
+```{r}
+# Gráfico de barras con las palabras más frecuentes
+library(ggplot2)
+
+ggplot(subset(fdata, Frecuencia>500),aes(Palabra,Frecuencia,fill=Tematica))+geom_bar(stat="identity",position=position_stack())+theme(axis.text.x=element_text(angle=45, hjust=1))+coord_flip()
+```
+
+
+```{r,eval=TRUE,echo=TRUE,warning=FALSE, message=FALSE}
+ggplot(subset(fdata, Frecuencia>0),aes(Palabra,Frecuencia,fill=Tematica))+geom_bar(stat="identity",position=position_dodge())+theme(axis.text.x=element_text(angle=45, hjust=1))
+```
+
+El total de palabras "acq" es 42. (falta ver para frecuencia mayor a 500)
+El total de palabras "earn" es 29. (falta ver para frecuencia mayor a 500)
+El total de palabras sera 42 - 71 (42+29)
+
+La idea basica es: cuantas mas barras bi-color hay (palabras en los dos grupos) mas similares son los temas y por tanto más costara diferenciar un topic de otro.
+
+
 ## Ejercicio 4: 
 En el apartado "Validación del Modelo de clasificación" se presenta la matriz de confusión del modelo generado. A partir de esta matriz se calculan dos ratios. Se supone que la categoría de referencia o "verdadera" es acq. Determinad que ratios (ratio1 y ratio2) hemos calculado y obtened el ratio de precisión. Interpretad los resultados.
 
 ## Respuesta 4: 
+
+```{r,eval=TRUE,echo=TRUE,warning=FALSE, message=FALSE}
+conf.mat
+
+ratio1 <- (conf.mat[1,1]/(conf.mat[1,1]+conf.mat[1,2]))*100
+ratio1
+
+ratio2 <- (conf.mat[2,2]/(conf.mat[1,2]+conf.mat[2,2]))*100
+ratio2
+
+```
+El ratio1 es la exactitud (TP / (TP + FP))
+El ratio2 es la especificidad (TN/N) donde N = FP + TN (todos los negativos "reales")
+
+Los positivos "reales" (P) se calculan como P = TP + FN
+Los negativos "reales" (N) se calculan como N = TN + FP
+
+La precision se calcula como Precisión = (TP + TN) / (P + N)
+```{r}
+P <- sum(conf.mat[,1])
+N <- sum(conf.mat[,2])
+TP <- conf.mat[1,1]
+TN <- conf.mat[2,2]
+precision <- (TP + TN) / (P + N)
+precision
+```
+
 
 ## Ejercicio 5: 
 En el apartado "Validación del Modelo de clasificación" se utiliza la función "knn" para clasificar los documentos según temática. Esta función por defecto supone que el número de vecinos a evaluar es igual a 1. Valorad los resultados del algoritmo K-NN utilizando distinto número de vecinos, por ejemplo, 3 y 5. 
