@@ -478,8 +478,46 @@ En el apartado "Visualizaciones sobre la matriz de palabras TDM" se muestron alg
 
 ## Respuesta 2:
 
-```{r}
+La matriz de "earn" la podemos encontrar en `mat[[2]]$mat`.
 
+Seguidamente visualizaremos los 10 primeros terminos y los 10 primeros documentos de esta temática:
+```{r}
+#frecuencia 10 primeros terminos
+inspect(mat[[2]]$mat[1:10,])
+
+#frecuencia de los 10 primeros documentos
+inspect(mat[[2]]$mat[,1:10])
+
+#frecuencia de los 10 primeros terminos en los 10 primeros documentos
+inspect(mat[[2]]$mat[1:10,1:10])
+```
+
+Ahora visualizaremos aquellas palabras con frecuencia menor a 1000 y mayor a 10 (10 < f < 1000):
+```{r}
+findFreqTerms(mat[[2]]$mat, lowfreq = 10, highfreq = 1000)
+```
+
+
+
+
+Con las dos matrices de frecuencias `mat[[1]]$mat` para acq y `mat[[2]]$mat` para earn, podemos realizar algunas visualizaciones básicas.  
+
+```{r,eval=TRUE,echo=TRUE,warning=FALSE, message=FALSE}
+# Frecuencia de los 25 primeros términos en los 10 primeros documentos para ambos temas
+inspect(mat[[1]]$mat[1:25,1:10])
+inspect(mat[[2]]$mat[1:25,1:10])
+# Frecuencia de los 30 primeros términos en todos los documentos del tema acq
+inspect(mat[[1]]$mat[1:30,])
+# Frecuencia de los términos en los documentos del tema earn
+inspect(mat[[2]]$mat)
+# Inventario de los primeros términos del del tema earn
+head(mat[[2]]$mat$dimnames$Terms)
+# Número de documentos del tema acq
+nDocs(mat[[1]]$mat)
+# Número de términos del tema acq
+nTerms(mat[[1]]$mat)
+# Visualizamos los términos con más de 100 apariciones en documentos de temática acq
+findFreqTerms(mat[[1]]$mat, lowfreq=100)
 ```
 
 
